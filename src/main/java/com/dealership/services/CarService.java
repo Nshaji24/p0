@@ -76,7 +76,7 @@ public class CarService {
     }
 
 
-    public void makeOffer(String make, String model,String offer,int offerID) throws SQLException {
+    public void makeOffer(String make, String model,String offer,int offerID,int car_id,String username) throws SQLException {
         userDAO.viewCars();
         System.out.println("Enter desired car make");
         make = scan.nextLine();
@@ -84,8 +84,12 @@ public class CarService {
         model = scan.nextLine();
         System.out.println("Enter your offer" );
         offer=scan.nextLine();
+        System.out.println("Enter the car id");
+        car_id=scan.nextInt();
+        System.out.println("Enter your username");
+        username = scan.nextLine();
         offerID= (int) Math.round(Math.random() * 100);
-        userDAO.makeOffer(make,model,offer,offerID);
+        userDAO.makeOffer(make,model,offer,offerID,car_id,username);
 
     }
 }

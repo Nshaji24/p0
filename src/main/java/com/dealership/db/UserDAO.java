@@ -137,9 +137,9 @@ public class UserDAO implements GenericDAO<User> {
 
 
 
-    public void makeOffer(String make, String model, String offer, int offerID) throws SQLException {
+    public void makeOffer(String make, String model, String offer, int offerID, int car_id,String username) throws SQLException {
         Statement st = getConnection().createStatement();
-        String sql = "insert into dealershiplotoffers values ('" + make  +  "', '" + model+  "', '" + offer + "', '"+ offerID +"')";
+        String sql = "insert into dealershiplotoffers values ('" + make  +  "', '" + model+  "', '" + offer + "', '"+ offerID +"', '" +car_id+ "', '" +username+"')";
         st.executeUpdate(sql);
 
     }
@@ -166,8 +166,11 @@ public class UserDAO implements GenericDAO<User> {
         ResultSetMetaData md = r1.getMetaData();
         int columnsNumber = md.getColumnCount();
         while (r1.next()) {
-            for(int i = 1; i < columnsNumber; i++)
-                System.out.print(r1.getString(i) + " ");
+            for (int i = 1; i < columnsNumber; i++) {
+                String columnName = r1.getMetaData().getColumnName(i);
+                System.out.print(columnName + " :  " + r1.getString(i) + " ");
+
+            }
             System.out.println();
         }
     }
@@ -237,23 +240,27 @@ public class UserDAO implements GenericDAO<User> {
             ResultSet rs = st.executeQuery(sql);
             ResultSetMetaData md = rs.getMetaData();
             int columnsNumber = md.getColumnCount();
-            //int index =1; //for the first column
 
-            for (int index = 1; index <= columnsNumber; index++) {
+
+          /*  for (int index = 1; index <= columnsNumber; index++) {
                 String columnName = rs.getMetaData().getColumnName(index);
-                System.out.print(columnName+ " ");
-            }
-                while (rs.next()) {
-                    System.out.println();
-                    for (int i = 1; i <= columnsNumber; i++) {
-                        System.out.print(rs.getString(i) + " ");
-                        //System.out.println();
+                System.out.print(columnName+ " ");*/
+          //  }
+            while (rs.next()) {
+                System.out.println();
+                for (int i = 1; i <= columnsNumber; i++) {
+                    String columnName = rs.getMetaData().getColumnName(i);
+                    System.out.print(columnName +" :  " + rs.getString(i) + " ");
+
                     }
+                    System.out.println();
                 }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println();
+        System.out.println();
     }
 
     public void makePayment(String username, int car_id,int amountpaid,int carprice) throws SQLException {
@@ -275,4 +282,5 @@ public class UserDAO implements GenericDAO<User> {
 
 
     }
+
 }

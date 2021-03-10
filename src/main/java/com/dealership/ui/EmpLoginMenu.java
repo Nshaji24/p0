@@ -32,8 +32,8 @@ public class EmpLoginMenu {
 
 
                 //  do {
-                System.out.println("Please chose from the following options: 1=>Add car to lot %n 2=>Remove Car from lot %n 3=>View Offers on Cars " +
-                        "  %n 4 =>View Payments %n 5=>view all registered users 6=>exit");
+                System.out.println("Please chose from the following options: \n 1=>Add car to lot \n 2=>Remove Car from lot \n 3=>View Offers on Cars " +
+                        "  \n 4=>View Payments \n 5=>view all registered users \n 6=>exit");
                 String input = scan.nextLine();
                 CarService n = new CarService();
 
@@ -63,7 +63,9 @@ public class EmpLoginMenu {
                     case "6":
                         um.showMenu(scan);
                         break;
-
+                    case "7":
+                        System.out.println("Register new employee");
+                        ems.makeEmployee();
 
                 }
                    /* if (input.equalsIgnoreCase("1")) {

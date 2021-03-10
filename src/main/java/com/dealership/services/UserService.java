@@ -44,7 +44,6 @@ public class UserService {
     public boolean purchaseCar() throws SQLException {
         System.out.println("Enter your username ");
         String username = scan.nextLine();
-       // uj.getUserName(username);
         System.out.println("Enter car id of car you would like to purchase");
         int car_id = Integer.parseInt(scan.next());
         uj.buyFromLot(car_id,username);
@@ -57,16 +56,19 @@ public class UserService {
     }
 
     public void userMenu() throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
-        System.out.println("Please chose from the following options: 1=>View Cars in Lot %n 2=>Purchase a car %n 3=> " +
-                "View Payments remaining on car %n 4 =>make an offer on a car 5=>view cars you own 6=>make a payment 7=>exit");
+        System.out.println("Please chose from the following options: \n 1=>View Cars in Lot \n 2=>Purchase a car \n 3=>" +
+                "View Payments remaining on car \n 4=>make an offer on a car \n 5=>view cars you own \n 6=>make a payment \n 7=>exit");
           String input = scan.nextLine();
           switch (input){
               case "1" :
                   cs.viewLot();
+                  System.out.println();
                   break;
               case "2" :
                   cs.viewLot();
+                  System.out.println();
                   purchaseCar();
+                  System.out.println();
                   break;
               case "3" :
                   System.out.println("Now checking remaining payments on car");
@@ -76,7 +78,7 @@ public class UserService {
                   break;
               case "4" :
                   System.out.println("Your selected make an offer");
-                  cs.makeOffer("", "", "", (int) Math.round(Math.random() * 100));
+                  cs.makeOffer("", "", "", (int) Math.round(Math.random() * 100),0,"");
                   System.out.println("sucessuly made an offer");
                   break;
               case "5" :
@@ -91,8 +93,6 @@ public class UserService {
                   System.out.println();
                   System.out.println("Enter car ID");
                   car_id = scan.nextInt();
-                  /*System.out.println("current remaining price is : ");
-                  uj.getRemainingPayment(car_id);*/
                   System.out.println("Enter amount you want to pay");
                   int amountpaid = scan.nextInt();
                   makePayment(username,car_id,amountpaid,0);

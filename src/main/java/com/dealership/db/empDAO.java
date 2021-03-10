@@ -6,6 +6,9 @@ import com.dealership.util.dealershipCollection;
 
 
 import java.sql.*;
+import java.util.Scanner;
+
+import static com.dealership.config.ConnectionUtil.getConnection;
 
 public class empDAO implements GenericDAO<User>{
     @Override
@@ -77,10 +80,12 @@ public class empDAO implements GenericDAO<User>{
             int columnsNumber = md.getColumnCount();
 
             while (rs.next()) {
-                for(int i = 1; i <= columnsNumber; i++)
-                    System.out.print(rs.getString(i) + " ");
+                for(int i = 1; i <= columnsNumber; i++) {
+                    String columnName = rs.getMetaData().getColumnName(i);
+                    System.out.print(columnName +"  :  "+ rs.getString(i) + "  "+ "");
+                   // System.out.println();
+                }
                 System.out.println();
-
             }
 
         } catch (SQLException e) {
@@ -138,6 +143,7 @@ public class empDAO implements GenericDAO<User>{
                    System.out.print(colName+ " : "+ rs.getString(i) + " | ");
                    ;
                }
+               System.out.println();
            }
 
 
@@ -146,7 +152,34 @@ public class empDAO implements GenericDAO<User>{
         }
     }
 
+    public void moveToLot(int car_id,String username) throws SQLException {
+        PreparedStatement st = getConnection().prepareStatement("insert into dealershipusercars (make,model,yearmade,mileage,price,car_condition,car_id,username)" +
+                "select make,model,yearmade,mileage,price,car_condition,car_id,? from dealershiplot where car_id = ? ");
+
+
+        st.setString(1,username);
+        st.setInt(2, car_id);
+
+        st.executeUpdate();
+
+        System.out.println("Car successfully moved to customer account");
+        empDAO.removeFromLot(car_id);
+
 
     }
+    public void makeEmp(int id,String username,String password) throws SQLException {
+        PreparedStatement st = getConnection().prepareStatement("insert into dealershipemp (?,?,?)");
+
+        st.setInt(1,id);
+        st.setString(2,username);
+        st.setString(3, password);
+
+        st.executeUpdate();
+
+        System.out.println("Employee successfully registered");
+    }
+
+
+}
 
 
