@@ -46,12 +46,15 @@ public class carDAO implements GenericDAO<Car>{
             ResultSet rs = st.executeQuery(sql);
             ResultSetMetaData md = rs.getMetaData();
             int columnsNumber = md.getColumnCount();
+
             while (rs.next()) {
-                for(int i = 1; i < columnsNumber; i++)
-                    System.out.print(rs.getString(i) + " ");
+                for(int i = 1; i < columnsNumber; i++){
+                    String colName = md.getColumnName(i);
+                    System.out.print(colName + ": " + rs.getString(i) + " ");
                 System.out.println();
             }
-        } catch (SQLException e) {
+        }
+        }catch (SQLException e) {
             e.printStackTrace();
         }
         return null;

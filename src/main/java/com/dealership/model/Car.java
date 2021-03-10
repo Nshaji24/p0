@@ -89,6 +89,17 @@ public class Car extends Object{
     }
 
 
-
-
+    @Override
+    public String toString() {
+        return "Car{" +
+                "make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", yearMade=" + yearMade +
+                ", mileage=" + mileage +
+                ", price=" + price +
+                ", car_condition='" + car_condition + '\'' +
+                ", car_id=" + car_id +
+                ", scan=" + scan +
+                '}';
+    }
 }

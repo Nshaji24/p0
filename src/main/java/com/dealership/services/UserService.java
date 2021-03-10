@@ -5,6 +5,7 @@ import com.dealership.db.carDAO;
 import com.dealership.model.User;
 import com.dealership.ui.SignUpMenu;
 import com.dealership.ui.userMenu;
+import com.enterprise.annotations.TestMethod;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -21,7 +22,7 @@ public class UserService {
     public static User[] users = new User[6];
     private static int currentIndex = -1;
 
-
+@TestMethod
     public boolean doesUsernameExist(String username) throws SQLException {
         if (uj.checkUser(username)) {
             return true;
