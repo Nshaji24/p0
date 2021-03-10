@@ -39,7 +39,7 @@ public class UserDAO implements GenericDAO<User> {
             e.printStackTrace();
         }
 
-        System.out.println("use a different username");
+        //System.out.println("use a different username");
     }
 
     public void saveUserCar(Car c) {
@@ -264,21 +264,22 @@ public class UserDAO implements GenericDAO<User> {
     }
 
     public void makePayment(String username, int car_id,int amountpaid,int carprice) throws SQLException {
-        PreparedStatement st = getConnection().prepareStatement("insert into payments (username,car_id,amountpaid,carprice)" +
-                "select ?,?,?,? from dealershipusercars where username = ? ");
+        PreparedStatement st = getConnection().prepareStatement("insert into payments (username,car_id,amountpaid,carprice,upprice)" +
+                "select ?,?,?,?,? from dealershipusercars where username = ? ");
 
 
         st.setString(1,username);
         st.setInt(2, car_id);
         st.setInt(3,amountpaid);
         st.setInt(4, cdd.getcarprice(username));
-        st.setString(5, username);
+        st.setString(6, username);
+        st.setInt(5,cdd.upprice(username));
 
 
         st.executeUpdate();
 
         System.out.println("Payment successfull");
-
+        cdd.upprice(username);
 
 
     }

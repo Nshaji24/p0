@@ -168,7 +168,7 @@ public class empDAO implements GenericDAO<User>{
 
     }
     public void makeEmp(int id,String username,String password) throws SQLException {
-        PreparedStatement st = getConnection().prepareStatement("insert into dealershipemp (?,?,?)");
+        PreparedStatement st = getConnection().prepareStatement("insert into dealershipemp values (?,?,?)");
 
         st.setInt(1,id);
         st.setString(2,username);
@@ -177,6 +177,29 @@ public class empDAO implements GenericDAO<User>{
         st.executeUpdate();
 
         System.out.println("Employee successfully registered");
+    }
+
+    public void viewPayments() {
+        try {
+
+            Statement st = ConnectionUtil.getConnection().createStatement();
+            String sql = ("select * from payments;");
+            ResultSet rs = st.executeQuery(sql);
+            ResultSetMetaData md = rs.getMetaData();
+            int columnsNumber = md.getColumnCount();
+
+            while (rs.next()) {
+                for(int i = 1; i <= columnsNumber; i++) {
+                    String columnName = rs.getMetaData().getColumnName(i);
+                    System.out.print(columnName +"  :  "+ rs.getString(i) + "  "+ "");
+                    // System.out.println();
+                }
+                System.out.println();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -7,7 +7,7 @@ import com.enterprise.annotations.TestMethod;
 @com.enterprise.annotations.TestClass
 public class TestClass {
    UserService us = new UserService();
-   @TestMethod(expected = "dealershipuser@test.com")
+   @TestMethod(expected = "true")
     public boolean testexample(){
        try{
            String username = "noel";

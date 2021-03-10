@@ -6,8 +6,11 @@ import com.dealership.util.dealershipCollection;
 
 import java.sql.*;
 
+import static com.dealership.config.ConnectionUtil.getConnection;
+
 
 public class carDAO implements GenericDAO<Car>{
+//    UserDAO uj = new UserDAO();
     @Override
     public void save(Car c) {
             try {
@@ -112,13 +115,29 @@ public class carDAO implements GenericDAO<Car>{
         ResultSet r1 = st.executeQuery();
         while(r1.next()) {
 
-            System.out.print("Car price is: "+r1.getString("price"));
+            System.out.print("Car price is:  $" +r1.getInt("price"));
+            System.out.println();
             return r1.getInt("price");
         }
 
 
         return 0;
     }
+    public int upprice(String username) throws SQLException {
+        PreparedStatement st = ConnectionUtil.getConnection().prepareStatement("select amountpaid,carprice,carprice-amountpaid as upprice from payments where username = ? ");
+        st.setString(1, username);
+        ResultSet r1 = st.executeQuery();
+        while(r1.next()) {
+
+            System.out.print("Updated price is:  $" +r1.getInt("upprice"));
+            System.out.println();
+            return r1.getInt("upprice");
+        }
+
+
+        return 0;
+    }
+
 
 
 }

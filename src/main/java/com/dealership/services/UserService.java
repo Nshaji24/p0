@@ -36,9 +36,10 @@ public class UserService {
         return null;
     }
 
-    public boolean makeUser(int userID, String username, String password, String phoneNumber, String email) throws SQLException {
+    public String makeUser(int userID, String username, String password, String phoneNumber, String email) throws SQLException {
         uj.save(new User(userID, username, password, phoneNumber, email));
-        return false;
+       // return false;
+        return "User name is " +username;
     }
 
     public boolean purchaseCar() throws SQLException {
@@ -96,6 +97,7 @@ public class UserService {
                   System.out.println("Enter amount you want to pay");
                   int amountpaid = scan.nextInt();
                   makePayment(username,car_id,amountpaid,0);
+
               case "7" :
                   um.showMenu(scan);
               default:
